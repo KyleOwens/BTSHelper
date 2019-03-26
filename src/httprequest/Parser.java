@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,36 +93,55 @@ public class Parser {
         return gameIds;
     }
 
-    public String[] parseProbableHomePitchers() {
+    public String parseName(File file) {
         try {
-            JSONArray games = getGameData();
-            String[] homeProbables = new String[games.size()];
+            JSONParser parser = new JSONParser();
+            JSONObject o = (JSONObject) parser.parse(new FileReader(file));
+            return (String) o.get("Name");
 
-            int i = 0;
-            for (Object o : games) {
-                JSONObject game = (JSONObject) o;
-                homeProbables[i] = Objects.toString(game.get("HomeTeamProbablePitcherID"), null);
-                i++;
-            }
-            return homeProbables;
         } catch (Exception e) {
 
         }
         return null;
     }
 
-    public String[] parseProbableAwayPitchers() {
+    public String parseNewId(String name) {
+        try {
+            File file = new File("JSONFiles\\" + name + ".json");
+            JSONObject player = (JSONObject) getSearchedPlayerInfo(file, name);
+            String compareName = (String) player.get("name_display_first_last");
+            if (compareName.toLowerCase().equals(name.toLowerCase())) {
+                System.gc();
+                file.delete();
+                return (String) player.get("player_id");
+            } else {
+                System.out.println("fart");
+            }
+            System.gc();
+            System.out.println(file.delete());
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public HashMap<String, String> parseProbablePitchers(ConnectionManager manager) {
         try {
             JSONArray games = getGameData();
-            String[] awayProbables = new String[games.size()];
+            HashMap<String, String> probablePitchers = new HashMap<>();
 
-            int i = 0;
             for (Object o : games) {
                 JSONObject game = (JSONObject) o;
-                awayProbables[i] = Objects.toString(game.get("AwayTeamProbablePitcherID"), null);
-                i++;
+                String awayPitcher = manager.transformId(Objects.toString(game.get("AwayTeamProbablePitcherID"), null), this);
+                String homePitcher = manager.transformId(Objects.toString(game.get("HomeTeamProbablePitcherID"), null), this);
+                String awayTeam = (String) game.get("AwayTeam");
+                String homeTeam = (String) game.get("HomeTeam");
+
+                probablePitchers.put(homeTeam, awayPitcher);
+                probablePitchers.put(awayTeam, homePitcher);
             }
-            return awayProbables;
+            return probablePitchers;
         } catch (Exception e) {
 
         }
@@ -142,6 +163,36 @@ public class Parser {
         } catch (Exception e) {
 
         }
+        return null;
+    }
+
+    public double parsePitcherAvg(String id) {
+        try {
+            File file = new File("JSONFiles\\" + id + ".json");
+            JSONObject playerData = getPitcherInfo(file);
+            double avg = Double.parseDouble((String) playerData.get("avg"));
+            System.gc();
+            file.delete();
+            return avg;
+        } catch (Exception e) {
+
+        }
+
+        return 0;
+    }
+
+    public String parsePitchingDirection(String id) {
+        try {
+            File file = new File("JSONFiles\\" + id + "-demographic.json");
+            JSONObject playerInfo = getPlayerInfo(file);
+            String direction = (String) playerInfo.get("throws");            
+            System.gc();
+            file.delete();            
+            return direction;
+        } catch(Exception e){
+            
+        }
+        
         return null;
     }
 
@@ -171,6 +222,42 @@ public class Parser {
         JSONObject playerInfo = (JSONObject) q.get("row");
 
         return playerInfo;
+    }
+
+    private JSONObject getSearchedPlayerInfo(File file, String name) throws FileNotFoundException, IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject o = (JSONObject) parser.parse(new FileReader(file));
+        JSONObject p = (JSONObject) o.get("search_player_all");
+        JSONObject q = (JSONObject) p.get("queryResults");
+        try {
+            JSONObject playerInfo = (JSONObject) q.get("row");
+            return playerInfo;
+        } catch (Exception e) {
+            JSONArray players = (JSONArray) q.get("row");
+            for (Object obj : players) {
+                JSONObject curr = (JSONObject) obj;
+                String compare = (String) curr.get("name_display_first_last");
+                if (compare.toLowerCase().equals(name.toLowerCase())) {
+                    return curr;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private JSONObject getPitcherInfo(File file) {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject o = (JSONObject) parser.parse(new FileReader(file));
+            JSONObject p = (JSONObject) o.get("sport_pitching_tm");
+            JSONObject q = (JSONObject) p.get("queryResults");
+            JSONObject r = (JSONObject) q.get("row");
+        } catch (Exception e) {
+
+        }
+
+        return null;
     }
 
 }

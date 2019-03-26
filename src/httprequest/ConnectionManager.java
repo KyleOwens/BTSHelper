@@ -67,13 +67,70 @@ public class ConnectionManager {
     public void getPlayerData(String[] playerids) throws MalformedURLException, ProtocolException, IOException {
         System.out.println("Pulling all player data...");
         for (int i = 0; i < playerids.length; i++) {
-            System.out.println(playerids[0]);
             URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='" + playerids[i] + "'");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setDoOutput(true);
             download(con, playerids[i] + ".json");
         }
+
+    }
+
+    public void getPitcherData(String[] playerids) {
+        System.out.println("Pulling all pitcher data...");
+        try {
+            for (int i = 0; i < playerids.length; i++) {
+                URL url = new URL("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='" + playerids[i] + "'");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setDoOutput(true);
+                download(con, playerids[i] + ".json");
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public void getPitcherDemographic(String[] playerids) {
+        System.out.println("Pulling all pitcher demographics...");
+        try {
+            for (int i = 0; i < playerids.length; i++) {
+                URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='"  + playerids[i] + "'");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setDoOutput(true);
+                download(con, playerids[i] + "-demographic.json");
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public String transformId(String playerids, Parser parser) {
+        try {
+            String name = parser.parseName(new File("JSONFiles\\" + playerids + ".json"));
+            return getNewId(name, parser);
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    private String getNewId(String name, Parser parser) {
+        try {
+            URL url = new URL("http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='" + name.toLowerCase().substring(name.indexOf(" ")) + "%25'");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setDoOutput(true);
+            download(con, name + ".json");
+            return parser.parseNewId(name);
+
+        } catch (Exception e) {
+
+        }
+        return null;
 
     }
 
@@ -92,6 +149,7 @@ public class ConnectionManager {
             }
             output.close();
             content.close();
+            System.gc();
         } catch (Exception e) {
             e.printStackTrace();
         }

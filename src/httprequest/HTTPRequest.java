@@ -7,18 +7,10 @@ package httprequest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -31,13 +23,13 @@ public class HTTPRequest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws MalformedURLException, IOException, FileNotFoundException, ParseException {
+        ParkConstants pc = new ParkConstants();
+        HashMap<String, Integer> parkRatings = pc.createMap();
         ArrayList<Game> games = new ArrayList<>();
         String playerIds[] = new String[50];
         double averages[] = new double[50];
         String playerTeams[] = new String[50];
-        String playerBats[] = new String[50]; 
-        
-
+        String playerBats[] = new String[50];
 
         ConnectionManager manager = new ConnectionManager();
         //manager.getHitterData();
@@ -49,19 +41,18 @@ public class HTTPRequest {
         playerTeams = parser.parsePlayerTeams(playerIds);
         playerBats = parser.parsePlayerBatting(playerIds);
         String gameIds[] = parser.parseGameIds();
-        String homeTeamProbablePitchers[] = parser.parseProbableHomePitchers();
-        String awayTeamProbablePitchers[] = parser.parseProbableAwayPitchers();
         String stadiumIds[] = parser.parseStadiumIds();
+        HashMap<String, String> pitchers = parser.parseProbablePitchers(manager);
+        manager.getPitcherData(pitchers.values().toArray(new String[0]));
+        manager.getPitcherDemographic(pitchers.values().toArray(new String[0]));
 
-        
-
-        for (int i = 0; i < gameIds.length; i++) {
-            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 
-                    awayTeamProbablePitchers[i], stadiumIds[i]));
-        }
-//        
-//        for(int i = 0; i < games.size(); i ++){
-//            System.out.println(games.get(i));
+//        for (int i = 0; i < gameIds.length; i++) {
+//            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 
+//                    awayTeamProbablePitchers[i], stadiumIds[i]));
+//        }
+////        
+//        for(int i = 0; i < transformedIds.length; i ++){
+//            System.out.println(transformedIds[i]);
 //        }
     }
 

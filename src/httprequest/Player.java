@@ -14,7 +14,7 @@ public class Player {
     private double avg;
     private String bats;
     private String team;
-    private double OpponentERA;
+    private double OpponentAvg;
     private String OpponentThrows;
     private String parkRating;
 }
