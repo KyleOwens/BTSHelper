@@ -10,11 +10,33 @@ package httprequest;
  * @author Kyle
  */
 public class Player {
-    private int id;
+
+    private String id;
     private double avg;
     private String bats;
     private String team;
-    private double OpponentAvg;
-    private String OpponentThrows;
-    private String parkRating;
+    private double opponentAvg;
+    private String opponentThrows;
+    private int parkRating;
+
+    public Player(String id, double avg, String bats, String team, double OpponentAvg,
+            String OpponentThrows, int parkRating) {
+        this.id = id;
+        this.avg = avg;
+        this.bats = bats;
+        this.team = team;
+        this.opponentAvg = OpponentAvg;
+        this.opponentThrows = OpponentThrows;
+        this.parkRating = parkRating;
+    }
+
+    @Override
+    public String toString() {
+        return id + " bats " + bats + " and plays a pitcher that throws " + opponentThrows + ".  "
+                + "This player bats " + avg + " and the pitcher throws an average of " + opponentAvg
+                + ".  Finally, this player plays in a park with rating: " + parkRating;
+    }
+    
+    
+
 }

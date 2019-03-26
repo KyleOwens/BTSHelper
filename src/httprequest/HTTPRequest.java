@@ -30,6 +30,8 @@ public class HTTPRequest {
         double averages[] = new double[50];
         String playerTeams[] = new String[50];
         String playerBats[] = new String[50];
+        
+        ArrayList<Player> players = new ArrayList<>();
 
         ConnectionManager manager = new ConnectionManager();
         //manager.getHitterData();
@@ -41,10 +43,21 @@ public class HTTPRequest {
         playerTeams = parser.parsePlayerTeams(playerIds);
         playerBats = parser.parsePlayerBatting(playerIds);
         String gameIds[] = parser.parseGameIds();
-        String stadiumIds[] = parser.parseStadiumIds();
+        String stadiumIds[] = parser.parseStadiumIds(playerTeams);
         HashMap<String, String> pitchers = parser.parseProbablePitchers(manager);
         manager.getPitcherData(pitchers.values().toArray(new String[0]));
         manager.getPitcherDemographic(pitchers.values().toArray(new String[0]));
+        
+        for(int i = 0; i < playerIds.length; i++){
+            double opponentAvg = parser.parsePitcherAvg(pitchers.get(playerTeams[i]));
+            String opponentThrows = parser.parsePitchingDirection(pitchers.get(playerTeams[i]));
+            int parkRating = parkRatings.get(stadiumIds[i]);
+            players.add(new Player(playerIds[i], averages[i], playerBats[i], playerTeams[i],
+            opponentAvg, opponentThrows, parkRating));
+        }
+        
+        
+        System.out.println(players.get(0));
 
 //        for (int i = 0; i < gameIds.length; i++) {
 //            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 
