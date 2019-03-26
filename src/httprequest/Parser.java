@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -74,6 +75,81 @@ public class Parser {
         }
 
         return playerBats;
+    }
+
+    public String[] parseGameIds() throws IOException, FileNotFoundException, ParseException {
+        JSONArray games = getGameData();
+        String[] gameIds = new String[games.size()];
+
+        int i = 0;
+        for (Object o : games) {
+            JSONObject game = (JSONObject) o;
+            gameIds[i] = Objects.toString(game.get("GameID"), null);
+            i++;
+        }
+
+        return gameIds;
+    }
+
+    public String[] parseProbableHomePitchers() {
+        try {
+            JSONArray games = getGameData();
+            String[] homeProbables = new String[games.size()];
+
+            int i = 0;
+            for (Object o : games) {
+                JSONObject game = (JSONObject) o;
+                homeProbables[i] = Objects.toString(game.get("HomeTeamProbablePitcherID"), null);
+                i++;
+            }
+            return homeProbables;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    public String[] parseProbableAwayPitchers() {
+        try {
+            JSONArray games = getGameData();
+            String[] awayProbables = new String[games.size()];
+
+            int i = 0;
+            for (Object o : games) {
+                JSONObject game = (JSONObject) o;
+                awayProbables[i] = Objects.toString(game.get("AwayTeamProbablePitcherID"), null);
+                i++;
+            }
+            return awayProbables;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    public String[] parseStadiumIds() {
+        try {
+            JSONArray games = getGameData();
+            String[] stadiumIds = new String[games.size()];
+
+            int i = 0;
+            for (Object o : games) {
+                JSONObject game = (JSONObject) o;
+                stadiumIds[i] = Objects.toString(game.get("StadiumID"), null);
+                i++;
+            }
+            return stadiumIds;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    private JSONArray getGameData() throws FileNotFoundException, IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONArray games = (JSONArray) parser.parse(new FileReader(new File("JSONFiles\\probables.json")));
+
+        return games;
     }
 
     private JSONArray getHitters(File file) throws FileNotFoundException, IOException, ParseException {

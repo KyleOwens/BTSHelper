@@ -54,6 +54,16 @@ public class ConnectionManager {
         download(con, "probables.json");
     }
 
+    public void getStadiums() throws MalformedURLException, IOException {
+        System.out.println("Pulling current Stadium info...");
+        URL url = new URL("https://api.fantasydata.net/v3/mlb/scores/JSON/Stadiums");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setDoOutput(true);
+        con.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
+        download(con, "stadiuminfo.json");
+    }
+
     public void getPlayerData(String[] playerids) throws MalformedURLException, ProtocolException, IOException {
         System.out.println("Pulling all player data...");
         for (int i = 0; i < playerids.length; i++) {

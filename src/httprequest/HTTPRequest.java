@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,12 +31,13 @@ public class HTTPRequest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws MalformedURLException, IOException, FileNotFoundException, ParseException {
+        ArrayList<Game> games = new ArrayList<>();
         String playerIds[] = new String[50];
         double averages[] = new double[50];
         String playerTeams[] = new String[50];
-        String playerBats[] = new String[50];
+        String playerBats[] = new String[50]; 
+        
 
-        Map probables = new HashMap<String, String>();
 
         ConnectionManager manager = new ConnectionManager();
         //manager.getHitterData();
@@ -46,11 +48,21 @@ public class HTTPRequest {
         averages = parser.parseAverages(new File("JSONFiles\\top50.json"));
         playerTeams = parser.parsePlayerTeams(playerIds);
         playerBats = parser.parsePlayerBatting(playerIds);
-        //manager.getPlayerData(playerIds);
+        String gameIds[] = parser.parseGameIds();
+        String homeTeamProbablePitchers[] = parser.parseProbableHomePitchers();
+        String awayTeamProbablePitchers[] = parser.parseProbableAwayPitchers();
+        String stadiumIds[] = parser.parseStadiumIds();
 
-        for (int i = 0; i < 50; i++) {
-            System.out.println(playerBats[i]);
+        
+
+        for (int i = 0; i < gameIds.length; i++) {
+            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 
+                    awayTeamProbablePitchers[i], stadiumIds[i]));
         }
+//        
+//        for(int i = 0; i < games.size(); i ++){
+//            System.out.println(games.get(i));
+//        }
     }
 
 }
