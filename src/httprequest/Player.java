@@ -37,11 +37,13 @@ public class Player {
         this.opponentThrows = OpponentThrows;
         this.parkRating = parkRating;
 
-        hitRating = this.avg + this.opponentAvg - (.01 * parkRating);
-        
-        if(this.opponentThrows.equals(this.bats)){
-            this.hitRating -= .250;
+        hitRating = this.avg + this.opponentAvg - (.005 * parkRating);
+        if(opponentThrows != null){
+            if (this.opponentThrows.equals(this.bats)) {
+                this.hitRating -= .250;
+            }
         }
+
     }
 
     public double getHitRating() {
@@ -50,7 +52,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return this.name + " has a hit rating of:  " + df.format(this.hitRating);
+        return this.name + " has a hit rating of:  " + df.format(this.hitRating) + "  BA: " + this.avg + "   OPPBA: " + this.opponentAvg;
     }
 
 }

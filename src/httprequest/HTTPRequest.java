@@ -33,12 +33,13 @@ public class HTTPRequest {
         String playerTeams[] = new String[50];
         String playerBats[] = new String[50];
         String playerNames[] = new String[50];
-        
+
         ArrayList<Player> players = new ArrayList<>();
 
         ConnectionManager manager = new ConnectionManager();
         //manager.getHitterData();
-        //manager.getProbable("2019-MAR-29");
+        manager.getProbable("2019-MAR-30");
+        manager.getSchedule();
 
         Parser parser = new Parser();
         playerIds = parser.parseHittingLeaders(new File("JSONFiles\\top50.json"));
@@ -47,39 +48,38 @@ public class HTTPRequest {
         playerNames = parser.parsePlayerNames(playerIds);
         playerBats = parser.parsePlayerBatting(playerIds);
         String gameIds[] = parser.parseGameIds();
+        
         String stadiumIds[] = parser.parseStadiumIds(playerTeams);
         HashMap<String, String> pitchers = parser.parseProbablePitchers(manager);
+        
+        String[] testArray = pitchers.values().toArray(new String[0]);
+
         manager.getPitcherData(pitchers.values().toArray(new String[0]));
         manager.getPitcherDemographic(pitchers.values().toArray(new String[0]));
-        
-        for(int i = 0; i < playerIds.length; i++){
+
+
+        for (int i = 0; i < playerIds.length; i++) {
             double opponentAvg = parser.parsePitcherAvg(pitchers.get(playerTeams[i]));
             String opponentThrows = parser.parsePitchingDirection(pitchers.get(playerTeams[i]));
-            int parkRating = parkRatings.get(stadiumIds[i]);
+            int parkRating = 20;
+            if(parkRatings.containsKey(stadiumIds[i])){
+                parkRating = parkRatings.get(stadiumIds[i]);
+            }
+            
             players.add(new Player(playerNames[i], playerIds[i], averages[i], playerBats[i], playerTeams[i],
-            opponentAvg, opponentThrows, parkRating));
+                    opponentAvg, opponentThrows, parkRating));
         }
-        
-        
+
         Collections.sort(players, new Comparator<Player>() {
             @Override
             public int compare(Player o1, Player o2) {
-                return Double.compare(o2.getHitRating(),o1.getHitRating());
+                return Double.compare(o2.getHitRating(), o1.getHitRating());
             }
         });
-        
+
         for(Player p : players){
             System.out.println(p);
         }
-
-//        for (int i = 0; i < gameIds.length; i++) {
-//            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 
-//                    awayTeamProbablePitchers[i], stadiumIds[i]));
-//        }
-////        
-//        for(int i = 0; i < transformedIds.length; i ++){
-//            System.out.println(transformedIds[i]);
-//        }
     }
 
 }

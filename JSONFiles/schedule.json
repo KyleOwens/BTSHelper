@@ -1,0 +1,544 @@
+{
+  "copyright" : "Copyright 2019 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "totalItems" : 8,
+  "totalEvents" : 0,
+  "totalGames" : 8,
+  "totalGamesInProgress" : 0,
+  "dates" : [ {
+    "date" : "2019-03-29",
+    "totalItems" : 8,
+    "totalEvents" : 0,
+    "totalGames" : 8,
+    "totalGamesInProgress" : 0,
+    "games" : [ {
+      "gamePk" : 566865,
+      "link" : "/api/v1/game/566865/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-29T23:07:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 116,
+            "name" : "Detroit Tigers",
+            "link" : "/api/v1/teams/116"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 141,
+            "name" : "Toronto Blue Jays",
+            "link" : "/api/v1/teams/141"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 14,
+        "name" : "Rogers Centre",
+        "link" : "/api/v1/venues/14"
+      },
+      "content" : {
+        "link" : "/api/v1/game/566865/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-566865-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 567360,
+      "link" : "/api/v1/game/567360/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-29T23:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 115,
+            "name" : "Colorado Rockies",
+            "link" : "/api/v1/teams/115"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 146,
+            "name" : "Miami Marlins",
+            "link" : "/api/v1/teams/146"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 4169,
+        "name" : "Marlins Park",
+        "link" : "/api/v1/venues/4169"
+      },
+      "content" : {
+        "link" : "/api/v1/game/567360/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-567360-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 566665,
+      "link" : "/api/v1/game/566665/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-29T23:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 117,
+            "name" : "Houston Astros",
+            "link" : "/api/v1/teams/117"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 139,
+            "name" : "Tampa Bay Rays",
+            "link" : "/api/v1/teams/139"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 12,
+        "name" : "Tropicana Field",
+        "link" : "/api/v1/venues/12"
+      },
+      "content" : {
+        "link" : "/api/v1/game/566665/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-566665-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 567553,
+      "link" : "/api/v1/game/567553/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-30T00:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 138,
+            "name" : "St. Louis Cardinals",
+            "link" : "/api/v1/teams/138"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 158,
+            "name" : "Milwaukee Brewers",
+            "link" : "/api/v1/teams/158"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 32,
+        "name" : "Miller Park",
+        "link" : "/api/v1/venues/32"
+      },
+      "content" : {
+        "link" : "/api/v1/game/567553/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-567553-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 566087,
+      "link" : "/api/v1/game/566087/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-30T02:07:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 108,
+            "name" : "Los Angeles Angels",
+            "link" : "/api/v1/teams/108"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 2,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 133,
+            "name" : "Oakland Athletics",
+            "link" : "/api/v1/teams/133"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 2
+        }
+      },
+      "venue" : {
+        "id" : 10,
+        "name" : "Oakland Coliseum",
+        "link" : "/api/v1/venues/10"
+      },
+      "content" : {
+        "link" : "/api/v1/game/566087/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-566087-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 566373,
+      "link" : "/api/v1/game/566373/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-30T02:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 111,
+            "name" : "Boston Red Sox",
+            "link" : "/api/v1/teams/111"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 2,
+            "losses" : 0,
+            "pct" : "1.000"
+          },
+          "team" : {
+            "id" : 136,
+            "name" : "Seattle Mariners",
+            "link" : "/api/v1/teams/136"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 2
+        }
+      },
+      "venue" : {
+        "id" : 680,
+        "name" : "T-Mobile Park",
+        "link" : "/api/v1/venues/680"
+      },
+      "content" : {
+        "link" : "/api/v1/game/566373/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-566373-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 566276,
+      "link" : "/api/v1/game/566276/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-30T02:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 137,
+            "name" : "San Francisco Giants",
+            "link" : "/api/v1/teams/137"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 135,
+            "name" : "San Diego Padres",
+            "link" : "/api/v1/teams/135"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 2680,
+        "name" : "Petco Park",
+        "link" : "/api/v1/venues/2680"
+      },
+      "content" : {
+        "link" : "/api/v1/game/566276/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-566276-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    }, {
+      "gamePk" : 565800,
+      "link" : "/api/v1/game/565800/feed/live",
+      "gameType" : "R",
+      "season" : "2019",
+      "gameDate" : "2019-03-30T02:10:00Z",
+      "status" : {
+        "abstractGameState" : "Preview",
+        "codedGameState" : "S",
+        "detailedState" : "Scheduled",
+        "statusCode" : "S",
+        "abstractGameCode" : "P"
+      },
+      "teams" : {
+        "away" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 109,
+            "name" : "Arizona Diamondbacks",
+            "link" : "/api/v1/teams/109"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        },
+        "home" : {
+          "leagueRecord" : {
+            "wins" : 0,
+            "losses" : 0,
+            "pct" : ".000"
+          },
+          "team" : {
+            "id" : 119,
+            "name" : "Los Angeles Dodgers",
+            "link" : "/api/v1/teams/119"
+          },
+          "splitSquad" : false,
+          "seriesNumber" : 1
+        }
+      },
+      "venue" : {
+        "id" : 22,
+        "name" : "Dodger Stadium",
+        "link" : "/api/v1/venues/22"
+      },
+      "content" : {
+        "link" : "/api/v1/game/565800/content"
+      },
+      "gameNumber" : 1,
+      "publicFacing" : true,
+      "doubleHeader" : "N",
+      "gamedayType" : "P",
+      "tiebreaker" : "N",
+      "calendarEventID" : "14-565800-2019-03-29",
+      "seasonDisplay" : "2019",
+      "dayNight" : "night",
+      "scheduledInnings" : 9,
+      "gamesInSeries" : 4,
+      "seriesGameNumber" : 2,
+      "seriesDescription" : "Regular Season",
+      "recordSource" : "S",
+      "ifNecessary" : "N",
+      "ifNecessaryDescription" : "Normal Game"
+    } ],
+    "events" : [ ]
+  } ]
+}

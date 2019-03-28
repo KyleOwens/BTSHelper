@@ -41,7 +41,7 @@ public class Parser {
     }
 
     public String[] parsePlayerNames(String[] playerids) {
-        try{
+        try {
             String playerTeams[] = new String[50];
             for (int i = 0; i < playerids.length; i++) {
                 File file = new File("JSONFiles\\" + playerids[i] + ".json");
@@ -50,8 +50,8 @@ public class Parser {
             }
 
             return playerTeams;
-        } catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
 
         return null;
@@ -146,6 +146,8 @@ public class Parser {
 
             for (Object o : games) {
                 JSONObject game = (JSONObject) o;
+                manager.getOddPitcherIds(Objects.toString(game.get("AwayTeamProbablePitcherID"), null));
+                manager.getOddPitcherIds(Objects.toString(game.get("HomeTeamProbablePitcherID"), null));
                 String awayPitcher = manager.transformId(Objects.toString(game.get("AwayTeamProbablePitcherID"), null), this);
                 String homePitcher = manager.transformId(Objects.toString(game.get("HomeTeamProbablePitcherID"), null), this);
                 String awayTeam = (String) game.get("AwayTeam");
@@ -188,17 +190,41 @@ public class Parser {
         return null;
     }
 
-    public double parsePitcherAvg(String id) {
+    public double parsePitcherAvg(String id) throws FileNotFoundException, IOException, ParseException {
         try {
             File file = new File("JSONFiles\\" + id + ".json");
-            JSONObject playerData = getPitcherInfo(file);
-            double avg = Double.parseDouble((String) playerData.get("avg"));
+            JSONParser parser = new JSONParser();
+            JSONObject o = (JSONObject) parser.parse(new FileReader(file));
+            JSONObject p = (JSONObject) o.get("sport_pitching_tm");
+            JSONObject q = (JSONObject) p.get("queryResults");
+            JSONObject r = (JSONObject) q.get("row");
+
+            String playerAverage = (String) r.get("avg");
+            double avg = Double.parseDouble(playerAverage);
             return avg;
         } catch (Exception e) {
+            if(id != null){
+                File file = new File("JSONFiles\\" + id + ".json");
+                JSONParser parser = new JSONParser();
+                JSONObject o = (JSONObject) parser.parse(new FileReader(file));
+                JSONObject p = (JSONObject) o.get("sport_pitching_tm");
+                JSONObject q = (JSONObject) p.get("queryResults");
+                JSONArray r = (JSONArray) q.get("row");
+
+                double avgAverage = 0;
+                double teams = 0;
+                for (Object obj : r) {
+                    JSONObject jObj = (JSONObject) obj;
+                    avgAverage += Double.parseDouble((String) jObj.get("avg"));
+                    teams++;
+                }
+
+                return avgAverage / teams;
+            } else {
+                return 0;
+            }
 
         }
-
-        return 0;
     }
 
     public String parsePitchingDirection(String id) {
@@ -259,21 +285,6 @@ public class Parser {
                     return curr;
                 }
             }
-        }
-
-        return null;
-    }
-
-    private JSONObject getPitcherInfo(File file) {
-        try {
-            JSONParser parser = new JSONParser();
-            JSONObject o = (JSONObject) parser.parse(new FileReader(file));
-            JSONObject p = (JSONObject) o.get("sport_pitching_tm");
-            JSONObject q = (JSONObject) p.get("queryResults");
-            JSONObject r = (JSONObject) q.get("row");
-            return r;
-        } catch (Exception e) {
-
         }
 
         return null;

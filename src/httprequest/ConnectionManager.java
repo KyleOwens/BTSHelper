@@ -76,6 +76,19 @@ public class ConnectionManager {
 
     }
 
+    public void getOddPitcherIds(String id) {
+        try {
+            URL url = new URL("https://api.fantasydata.net/v3/mlb/stats/JSON/PlayerSeasonStatsByPlayer/2018/"+ id);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setDoOutput(true);
+            con.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
+            download(con, id+".json");
+        } catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
     public void getPitcherData(String[] playerids) {
         System.out.println("Pulling all pitcher data...");
         try {
@@ -96,7 +109,7 @@ public class ConnectionManager {
         System.out.println("Pulling all pitcher demographics...");
         try {
             for (int i = 0; i < playerids.length; i++) {
-                URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='"  + playerids[i] + "'");
+                URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='" + playerids[i] + "'");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
                 con.setDoOutput(true);
@@ -113,7 +126,7 @@ public class ConnectionManager {
             String name = parser.parseName(new File("JSONFiles\\" + playerids + ".json"));
             return getNewId(name, parser);
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         return null;
     }
