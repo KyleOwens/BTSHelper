@@ -21,76 +21,49 @@ import java.net.URL;
  */
 public class ConnectionManager {
 
-    private HttpURLConnection con;
-
     public ConnectionManager() {
     }
 
-    public void getHitterData() throws MalformedURLException, IOException {
-        System.out.println("Pulling top hitters...");
-        URL url = new URL("http://lookup-service-prod.mlb.com/json/named.leader_hitting_repeater.bam?sport_code='mlb'&results=50&game_type='R'&season='2018'&sort_column='avg'");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        download(con, "top50.json");
+    public void downloadTopHitterData(String year) {
+        System.out.println("Downloading top hitters...");
+        String apiUrl = "http://lookup-service-prod.mlb.com/json/named.leader_hitting_repeater.bam?sport_code="
+                + "'mlb'&results=50&game_type='R'&season='" + year + "'&sort_column='avg'";
+        HttpURLConnection connection = prepareConnection(apiUrl, false);
+        download(connection, "top50.json");
 
     }
 
-    public void getSchedule() throws MalformedURLException, IOException {
-        URL url = new URL("http://statsapi.mlb.com/api/v1/schedule/games/?sportId=1&date=03/29/2019");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        download(con, "schedule.json");
+    public void downloadProbablePitchers(String date) {
+        System.out.println("Downloading current probable pitchers for " + date + "...");
+        String apiUrl = "https://api.fantasydata.net/v3/mlb/scores/json/GamesByDate/" + date;
+        HttpURLConnection connection = prepareConnection(apiUrl, true);
+        download(connection, "probables.json");
     }
 
-    public void getProbable(String date) throws MalformedURLException, IOException {
-        System.out.println("Pulling current probable pitchers...");
-        URL url = new URL("https://api.fantasydata.net/v3/mlb/scores/json/GamesByDate/" + date);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        con.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
-        download(con, "probables.json");
-    }
-
-    public void getStadiums() throws MalformedURLException, IOException {
-        System.out.println("Pulling current Stadium info...");
-        URL url = new URL("https://api.fantasydata.net/v3/mlb/scores/JSON/Stadiums");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        con.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
-        download(con, "stadiuminfo.json");
-    }
-
-    public void getPlayerData(String[] playerids) throws MalformedURLException, ProtocolException, IOException {
-        System.out.println("Pulling all player data...");
+    public void downloadMLBLookupPlayerData(String[] playerids) throws MalformedURLException, ProtocolException, IOException {
+        System.out.println("Downloading player team info...");
         for (int i = 0; i < playerids.length; i++) {
-            URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='" + playerids[i] + "'");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setDoOutput(true);
-            download(con, playerids[i] + ".json");
+            String apiUrl = "http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code="
+                    + "'mlb'&player_id='" + playerids[i] + "'";
+            HttpURLConnection connection = prepareConnection(apiUrl, false);
+            download(connection, playerids[i] + ".json");
         }
 
     }
 
-    public void getOddPitcherIds(String id) {
+    public void downloadFantasyApiPitcherInfo(String id) {
+        System.out.println("Downloading pitcher data from fantasy api...");
         try {
-            URL url = new URL("https://api.fantasydata.net/v3/mlb/stats/JSON/PlayerSeasonStatsByPlayer/2018/"+ id);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setDoOutput(true);
-            con.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
-            download(con, id+".json");
-        } catch(Exception e){
-            System.out.println(e);
+            String apiUrl = "https://api.fantasydata.net/v3/mlb/stats/JSON/PlayerSeasonStatsByPlayer/2018/" + id;
+            HttpURLConnection connection = prepareConnection(apiUrl, true);
+            download(connection, id + ".json");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void getPitcherData(String[] playerids) {
-        System.out.println("Pulling all pitcher data...");
+    public void downloadMLBLookupPitcherData(String[] playerids) {
+        System.out.println("Downloading pitcher data from MLB Lookup...");
         try {
             for (int i = 0; i < playerids.length; i++) {
                 URL url = new URL("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='" + playerids[i] + "'");
@@ -100,23 +73,20 @@ public class ConnectionManager {
                 download(con, playerids[i] + ".json");
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-
     }
 
-    public void getPitcherDemographic(String[] playerids) {
-        System.out.println("Pulling all pitcher demographics...");
+    public void downloadPitcherDemographics(String[] playerids) {
+        System.out.println("Downloading pitcher demographics...");
         try {
             for (int i = 0; i < playerids.length; i++) {
-                URL url = new URL("http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='" + playerids[i] + "'");
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.setDoOutput(true);
-                download(con, playerids[i] + "-demographic.json");
+                String apiUrl = "http://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='" + playerids[i] + "'";
+                HttpURLConnection connection = prepareConnection(apiUrl, false);
+                download(connection, playerids[i] + "-demographic.json");
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
@@ -124,27 +94,49 @@ public class ConnectionManager {
     public String transformId(String playerids, Parser parser) {
         try {
             String name = parser.parseName(new File("JSONFiles\\" + playerids + ".json"));
-            return getNewId(name, parser);
+            return downloadMLBLookupIdByName(name, parser);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
 
-    private String getNewId(String name, Parser parser) {
+    private String downloadMLBLookupIdByName(String name, Parser parser) {
         try {
-            URL url = new URL("http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='" + name.toLowerCase().substring(name.indexOf(" ")) + "%25'");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setDoOutput(true);
-            download(con, name + ".json");
+            String apiUrl = "http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code='mlb'&active_sw='Y'&name_part='" + name.toLowerCase().substring(name.indexOf(" ")) + "%25'";
+            HttpURLConnection connection = prepareConnection(apiUrl, false);
+            download(connection, name + ".json");
             return parser.parseNewId(name);
-
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
 
+    }
+
+    public void downloadStadiumInfo() throws MalformedURLException, IOException {
+        System.out.println("Pulling current Stadium info...");
+        String apiUrl = "https://api.fantasydata.net/v3/mlb/scores/JSON/Stadiums";
+        HttpURLConnection connection = prepareConnection(apiUrl, true);
+        download(connection, "stadiuminfo.json");
+    }
+
+    private HttpURLConnection prepareConnection(String apiUrl, Boolean fantasyApi) {
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoOutput(true);
+
+            if (fantasyApi) {
+                connection.addRequestProperty("Ocp-Apim-Subscription-Key", "f413a3ca812c4ef1b07e6ec2fe2b017e");
+            }
+            return connection;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void download(HttpURLConnection con, String fileName) {

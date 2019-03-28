@@ -6,7 +6,6 @@
 package httprequest;
 
 import java.text.DecimalFormat;
-import java.util.Comparator;
 
 /**
  *
