@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import org.json.simple.parser.ParseException;
 
@@ -30,6 +32,7 @@ public class HTTPRequest {
         double averages[] = new double[50];
         String playerTeams[] = new String[50];
         String playerBats[] = new String[50];
+        String playerNames[] = new String[50];
         
         ArrayList<Player> players = new ArrayList<>();
 
@@ -41,6 +44,7 @@ public class HTTPRequest {
         playerIds = parser.parseHittingLeaders(new File("JSONFiles\\top50.json"));
         averages = parser.parseAverages(new File("JSONFiles\\top50.json"));
         playerTeams = parser.parsePlayerTeams(playerIds);
+        playerNames = parser.parsePlayerNames(playerIds);
         playerBats = parser.parsePlayerBatting(playerIds);
         String gameIds[] = parser.parseGameIds();
         String stadiumIds[] = parser.parseStadiumIds(playerTeams);
@@ -52,12 +56,21 @@ public class HTTPRequest {
             double opponentAvg = parser.parsePitcherAvg(pitchers.get(playerTeams[i]));
             String opponentThrows = parser.parsePitchingDirection(pitchers.get(playerTeams[i]));
             int parkRating = parkRatings.get(stadiumIds[i]);
-            players.add(new Player(playerIds[i], averages[i], playerBats[i], playerTeams[i],
+            players.add(new Player(playerNames[i], playerIds[i], averages[i], playerBats[i], playerTeams[i],
             opponentAvg, opponentThrows, parkRating));
         }
         
         
-        System.out.println(players.get(0));
+        Collections.sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player o1, Player o2) {
+                return Double.compare(o2.getHitRating(),o1.getHitRating());
+            }
+        });
+        
+        for(Player p : players){
+            System.out.println(p);
+        }
 
 //        for (int i = 0; i < gameIds.length; i++) {
 //            games.add(new Game(gameIds[i], homeTeamProbablePitchers[i], 

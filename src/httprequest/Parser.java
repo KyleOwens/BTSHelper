@@ -40,6 +40,23 @@ public class Parser {
 
     }
 
+    public String[] parsePlayerNames(String[] playerids) {
+        try{
+            String playerTeams[] = new String[50];
+            for (int i = 0; i < playerids.length; i++) {
+                File file = new File("JSONFiles\\" + playerids[i] + ".json");
+                JSONObject currentPlayer = getPlayerInfo(file);
+                playerTeams[i] = (String) currentPlayer.get("name_display_first_last");
+            }
+
+            return playerTeams;
+        } catch (Exception e){
+            
+        }
+
+        return null;
+    }
+
     public double[] parseAverages(File file) throws IOException, FileNotFoundException, ParseException {
         double[] averages = new double[50];
 
