@@ -94,6 +94,10 @@ public class ConnectionManager {
     public String transformId(String playerids, Parser parser) {
         try {
             String name = parser.parseName(new File("JSONFiles\\" + playerids + ".json"));
+            
+            if(name == null){
+                return null;
+            }
             return downloadMLBLookupIdByName(name, parser);
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,6 +112,7 @@ public class ConnectionManager {
             download(connection, name + ".json");
             return parser.parseNewId(name);
         } catch (Exception e) {
+            System.out.println(name);
             e.printStackTrace();
         }
         return null;
